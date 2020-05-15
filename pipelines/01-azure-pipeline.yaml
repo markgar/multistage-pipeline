@@ -1,0 +1,59 @@
+trigger:
+  branches:
+    include:
+    - master
+  
+stages:
+- stage: test_arm_build_artifact
+  displayName: Test ARM template and build Artifact
+
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - script: echo Do your Build here!
+      displayName: 'Run a one-line script'
+
+- stage: deploy_to_dev
+  displayName: Deploy App to Dev Environment
+  dependsOn: test_arm_build_artifact
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_dev
+    displayName: Deploy to Development
+    environment: 'development'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - script: echo Deploy to Dev here!
+            displayName: 'Run a one-line script'
+
+- stage: deploy_to_test
+  displayName: Deploy Application to Test
+  dependsOn: deploy_to_dev
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_test
+    displayName: Test
+    environment: 'test'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - script: echo Deploy to Test here!
+            displayName: 'Run a one-line script'
+          
