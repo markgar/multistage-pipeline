@@ -31,7 +31,7 @@ stages:
       displayName: 'Run a one-line script'
 
 - stage: deploy_to_dev
-  displayName: Deploy App to Dev Environment
+  displayName: Deploy to Dev Environment
   dependsOn: test_artifact
   condition: succeeded()
 
