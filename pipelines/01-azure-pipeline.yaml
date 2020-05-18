@@ -32,9 +32,10 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - script: Install-Module Pester -Force
+    - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - task: DownloadBuildArtifacts@0
+      displayName: 'Download Artifact'
       inputs:
         artifactName: drop
 
