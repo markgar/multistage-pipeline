@@ -16,7 +16,7 @@ stages:
     steps:
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/s' 
+        targetPath: '$(Pipeline.Workspace)/s/arm' 
         artifactName: 'drop'
 
 - stage: test_artifact
