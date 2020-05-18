@@ -4,8 +4,8 @@ trigger:
     - master
   
 stages:
-- stage: test_arm_build_artifact
-  displayName: Test ARM template and build Artifact
+- stage: build_artifact
+  displayName: Build Artifact
 
   jobs:
   - job: Build
@@ -17,9 +17,22 @@ stages:
     - script: echo Do your Build here!
       displayName: 'Run a one-line script'
 
+- stage: test_artifact
+  displayName: Test Artifact
+
+  jobs:
+  - job: Test
+    displayName: Test
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - script: echo Do your Tests here!
+      displayName: 'Run a one-line script'
+
 - stage: deploy_to_dev
   displayName: Deploy App to Dev Environment
-  dependsOn: test_arm_build_artifact
+  dependsOn: test_artifact
   condition: succeeded()
 
   jobs:
@@ -38,7 +51,7 @@ stages:
             displayName: 'Run a one-line script'
 
 - stage: deploy_to_test
-  displayName: Deploy Application to Test
+  displayName: Deploy to Test
   dependsOn: deploy_to_dev
   condition: succeeded()
 
