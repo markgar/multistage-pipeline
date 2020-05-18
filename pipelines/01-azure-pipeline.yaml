@@ -16,6 +16,10 @@ stages:
     steps:
     - script: echo Do your Build here!
       displayName: 'Run a one-line script'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)' 
+        artifactName: 'drop'
 
 - stage: test_artifact
   displayName: Test Artifact
@@ -31,7 +35,7 @@ stages:
       displayName: 'Run a one-line script'
 
 - stage: deploy_to_dev
-  displayName: Deploy to Dev Environment
+  displayName: Deploy to Dev
   dependsOn: test_artifact
   condition: succeeded()
 
