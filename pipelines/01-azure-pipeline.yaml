@@ -4,6 +4,8 @@ trigger:
     - master
   
 stages:
+
+######################################################################################
 - stage: build_artifact
   displayName: Build Artifact
 
@@ -19,6 +21,7 @@ stages:
         targetPath: '$(Pipeline.Workspace)/s/arm' 
         artifactName: 'drop'
 
+######################################################################################
 - stage: test_artifact
   displayName: Test Artifact
 
@@ -29,9 +32,26 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        #buildType: 'current'
+        #project: # Required when buildType == Specific
+        #pipeline: # Required when buildType == Specific
+        #specificBuildWithTriggering: false # Optional
+        #buildVersionToDownload: 'latest' # Required when buildType == Specific. Options: latest, latestFromBranch, specific
+        #allowPartiallySucceededBuilds: false # Optional
+        #branchName: 'refs/heads/master' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
+        #buildId: # Required when buildType == Specific && BuildVersionToDownload == Specific
+        #tags: # Optional
+        #downloadType: 'single' # Choose whether to download a single artifact or all artifacts of a specific build. Options: single, specific
+        artifactName: drop
+        #itemPattern: '**' # Optional
+        #downloadPath: '$(System.ArtifactsDirectory)' 
+        #parallelizationLimit: '8' # Optional
     - script: echo Do your Tests here!
       displayName: 'Run a one-line script'
 
+######################################################################################
 - stage: deploy_to_dev
   displayName: Deploy to Dev
   dependsOn: test_artifact
@@ -52,6 +72,7 @@ stages:
           - script: echo Deploy to Dev here!
             displayName: 'Run a one-line script'
 
+######################################################################################
 - stage: deploy_to_test
   displayName: Deploy to Test
   dependsOn: deploy_to_dev
