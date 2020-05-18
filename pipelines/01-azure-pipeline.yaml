@@ -14,11 +14,9 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - script: echo Do your Build here!
-      displayName: 'Run a one-line script'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)' 
+        targetPath: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'drop'
 
 - stage: test_artifact
