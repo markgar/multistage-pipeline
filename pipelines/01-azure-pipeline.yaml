@@ -32,11 +32,12 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    - script: Install-Module Pester -Force
+      displayName: 'Install Pester'
     - task: DownloadBuildArtifacts@0
       inputs:
         artifactName: drop
-    - script: Invoke-Pester
-      displayName: 'Run a one-line script'
+
 
 ######################################################################################
 - stage: deploy_to_dev
