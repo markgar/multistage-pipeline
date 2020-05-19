@@ -38,7 +38,7 @@ stages:
         artifactName: drop
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
-    - powershell: Invoke-Pester -Script /tests/simple.tests.ps1 -OutputFile Test-Pester.XML -OutputFormat NUnitXML
+    - powershell: Invoke-Pester -Script tests/simple.tests.ps1 -OutputFile Test-Pester.XML -OutputFormat NUnitXML
       displayName: 'Invoke Pester'
     - task: PublishTestResults@2
       inputs:
