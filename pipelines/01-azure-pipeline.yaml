@@ -38,8 +38,19 @@ stages:
         artifactName: drop
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
-    - powershell: Invoke-Pester
+    - powershell: Invoke-Pester -Script /tests/simple.tests.ps1 -OutputFile Test-Pester.XML -OutputFormat NUnitXML
       displayName: 'Invoke Pester'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: '**/TEST-*.xml' 
+        #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
 
 
 ######################################################################################
