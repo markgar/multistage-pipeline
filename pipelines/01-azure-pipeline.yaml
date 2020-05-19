@@ -38,7 +38,10 @@ stages:
         artifactName: drop
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
-    - powershell: Invoke-Pester -OutputFile TEST-simple.xml -OutputFormat NUnitXML
+    - powershell: |
+            $parameters = @{ TemplateFile = ".\LogicApp.json" }
+            $script = @{ Path = "tests/simple.Tests.ps1"; Parameters = $parameters }
+            Invoke-Pester -OutputFile -Script $script TEST-simple.xml -OutputFormat NUnitXML
       displayName: 'Invoke Pester'
     - task: PublishTestResults@2
       inputs:
