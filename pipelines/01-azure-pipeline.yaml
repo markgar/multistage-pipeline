@@ -7,7 +7,7 @@ stages:
 
 ######################################################################################
 - stage: build_artifact
-  displayName: Build Artifact
+  displayName: Build ARM Template Artifact
 
   jobs:
   - job: Build
@@ -23,7 +23,7 @@ stages:
 
 ######################################################################################
 - stage: test_artifact
-  displayName: Test Artifact
+  displayName: Test ARM Template
 
   jobs:
   - job: Test
@@ -44,7 +44,7 @@ stages:
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '**/TEST-*.xml' 
-        #mergeTestResults: false # Optional
+        mergeTestResults: false # Optional
 
 
 ######################################################################################
