@@ -40,7 +40,7 @@ stages:
       displayName: 'Install Pester'
     - powershell: |
             $parameters = @{ TemplateFile = ".\LogicApp.json" }
-            $script = @{ Path = "tests/simple.Tests.ps1"; Parameters = $parameters }
+            $script = @{ Path = "tests/simple.tests.ps1"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
       displayName: 'Invoke Pester'
     - task: PublishTestResults@2
