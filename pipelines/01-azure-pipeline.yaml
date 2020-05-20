@@ -70,6 +70,17 @@ stages:
             displayName: 'Download Artifact'
             inputs:
               artifactName: drop
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
+              subscriptionId: '75ebdae9-6e1c-4baa-8b2e-5576f6356a91'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'serverless-todo'
+              location: 'Central US'
+              templateLocation: 'Linked artifact'
+              csmFile: 'arm/azuredeploy.json'
+              deploymentMode: 'Complete'
 
 ######################################################################################
 - stage: deploy_to_test
