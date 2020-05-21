@@ -47,11 +47,12 @@ stages:
         location: 'Central US'
         templateLocation: 'Linked artifact'
         csmFile: '$(Build.SourcesDirectory)/arm/azuredeploy.json'
+        csmParametersFile: '$(Build.SourcesDirectory)/arm/dev.azuredeploy.parameters.json'
         deploymentMode: 'Validate'
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
-            $parameters = @{ TemplateFile = ".\azuredeloy.json" }
+            $parameters = @{ TemplateFile = "./azuredeloy.json" }
             $script = @{ Path = "tests/simple.tests.ps1"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
 
@@ -91,6 +92,7 @@ stages:
               location: 'Central US'
               templateLocation: 'Linked artifact'
               csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+              csmParametersFile: '$(pipeline.workspace)/drop/dev.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
 
 ######################################################################################
@@ -121,5 +123,6 @@ stages:
               location: 'Central US'
               templateLocation: 'Linked artifact'
               csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+              csmParametersFile: '$(pipeline.workspace)/drop/tst.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
           
