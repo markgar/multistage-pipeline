@@ -16,7 +16,7 @@
     },
     "variables": {
         "vnetNamePrefix": "multistage-pipeline-vnet",
-        "vnetName": "[concat(toLower(variables('vnetNamePrefix')), toLower(parameters('environment')))]"
+        "vnetName": "[concat(toLower(variables('vnetNamePrefix')), '-', toLower(parameters('environment')))]"
     },
     "resources": [
         {
