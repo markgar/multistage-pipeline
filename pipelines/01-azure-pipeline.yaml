@@ -66,10 +66,6 @@ stages:
         deploy:
 
           steps:
-          - task: DownloadBuildArtifacts@0
-            displayName: 'Download Artifact'
-            inputs:
-              artifactName: drop
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
@@ -79,7 +75,7 @@ stages:
               resourceGroupName: 'multistage-pipeline'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: 'arm/azuredeploy.json'
+              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
               deploymentMode: 'Complete'
 
 ######################################################################################
