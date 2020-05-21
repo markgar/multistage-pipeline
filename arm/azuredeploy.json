@@ -22,7 +22,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-12-01",
-            "name": "variables('vnetName')",
+            "name": "[variables('vnetName')]",
             "location": "eastus",
             "properties": {
                 "addressSpace": {
