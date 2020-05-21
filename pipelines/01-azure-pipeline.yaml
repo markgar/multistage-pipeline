@@ -46,7 +46,7 @@ stages:
         resourceGroupName: 'multistage-pipeline-dev'
         location: 'Central US'
         templateLocation: 'Linked artifact'
-        csmFile: 'azuredeploy.json'
+        csmFile: '$(Build.SourcesDirectory)/arm/azuredeploy.json'
         deploymentMode: 'Validate'
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
