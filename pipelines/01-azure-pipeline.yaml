@@ -75,7 +75,7 @@ stages:
               resourceGroupName: 'multistage-pipeline'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
+              csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
               deploymentMode: 'Complete'
 
 ######################################################################################
