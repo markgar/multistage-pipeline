@@ -32,10 +32,10 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    #- task: DownloadBuildArtifacts@0
-    #  displayName: 'Download Artifact'
-    #  inputs:
-    #    artifactName: drop
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Artifact'
+      inputs:
+        artifactName: drop
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
