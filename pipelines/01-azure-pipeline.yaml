@@ -32,11 +32,12 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download Artifact'
-      inputs:
-        artifactName: drop
+    #- task: DownloadBuildArtifacts@0
+    #  displayName: 'Download Artifact'
+    #  inputs:
+    #    artifactName: drop
     - task: AzureResourceManagerTemplateDeployment@3
+      displayName: 'Perform VALIDATE on the ARM template'
       inputs:
         deploymentScope: 'Resource Group'
         azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
@@ -45,7 +46,7 @@ stages:
         resourceGroupName: 'multistage-pipeline-dev'
         location: 'Central US'
         templateLocation: 'Linked artifact'
-        csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+        csmFile: 'azuredeploy.json'
         deploymentMode: 'Validate'
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
