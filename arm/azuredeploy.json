@@ -7,7 +7,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-12-01",
-            "name": "test-net",
+            "name": "multistage-pipline-net",
             "location": "eastus",
             "properties": {
                 "addressSpace": {
@@ -34,9 +34,9 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2019-12-01",
-            "name": "test-net/default",
+            "name": "multistage-pipline-net/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', 'test-net')]"
+                "[resourceId('Microsoft.Network/virtualNetworks', 'multistage-pipline-net')]"
             ],
             "properties": {
                 "addressPrefix": "10.2.0.0/24",
