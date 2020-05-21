@@ -72,7 +72,7 @@ stages:
               azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
               subscriptionId: '75ebdae9-6e1c-4baa-8b2e-5576f6356a91'
               action: 'Create Or Update Resource Group'
-              resourceGroupName: 'multistage-pipeline'
+              resourceGroupName: 'multistage-pipeline-dev'
               location: 'Central US'
               templateLocation: 'Linked artifact'
               csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
@@ -96,8 +96,15 @@ stages:
         deploy:
 
           steps:
-          - task: DownloadBuildArtifacts@0
-            displayName: 'Download Artifact'
+          - task: AzureResourceManagerTemplateDeployment@3
             inputs:
-              artifactName: drop
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
+              subscriptionId: '75ebdae9-6e1c-4baa-8b2e-5576f6356a91'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'multistage-pipeline-tst'
+              location: 'Central US'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+              deploymentMode: 'Complete'
           
