@@ -1,13 +1,28 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
-    "variables": {},
+    "parameters": {
+        "environment": {
+            "type": "string",
+            "allowedValues": [
+                "dev",
+                "tst",
+                "prd"
+            ],
+            "metadata": {
+                "description": "The environment you are deploying into."
+            }
+        }
+    },
+    "variables": {
+        "vnetNamePrefix": "multistage-pipeline-vnet",
+        "vnetName": "[concat(toLower(variables('vnetNamePrefix')), toLower(parameters('environment')))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-12-01",
-            "name": "multistage-pipline-net",
+            "name": "variables('vnetName')",
             "location": "eastus",
             "properties": {
                 "addressSpace": {
@@ -20,13 +35,15 @@
                         "name": "default",
                         "properties": {
                             "addressPrefix": "10.2.0.0/24",
-                            "delegations": [],
+                            "delegations": [
+                            ],
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Enabled"
                         }
                     }
                 ],
-                "virtualNetworkPeerings": [],
+                "virtualNetworkPeerings": [
+                ],
                 "enableDdosProtection": false,
                 "enableVmProtection": false
             }
@@ -34,13 +51,14 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2019-12-01",
-            "name": "multistage-pipline-net/default",
+            "name": "[concat(variables('vnetName'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', 'multistage-pipline-net')]"
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
             ],
             "properties": {
                 "addressPrefix": "10.2.0.0/24",
-                "delegations": [],
+                "delegations": [
+                ],
                 "privateEndpointNetworkPolicies": "Disabled",
                 "privateLinkServiceNetworkPolicies": "Enabled"
             }
