@@ -56,7 +56,7 @@ stages:
 
             $script = @{ Path = "tests/another.tests.ps1"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-another.xml -OutputFormat NUnitXML
-      displayName: 'Invoke Pester'
+      displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'NUnit'
