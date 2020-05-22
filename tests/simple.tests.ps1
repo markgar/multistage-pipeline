@@ -1,5 +1,5 @@
 Param(
-    [string] [Parameter(Mandatory = $true)] $TemplateFile
+    [string] $TemplateFilePath
 )
 
 $json = Get-Content -Path $TemplateFile
