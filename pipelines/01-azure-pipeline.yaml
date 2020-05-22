@@ -34,10 +34,6 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    #- task: DownloadBuildArtifacts@0
-    #  displayName: 'Download Artifact'
-    #  inputs:
-    #    artifactName: drop
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: 'Perform VALIDATE on the ARM template'
       inputs:
@@ -65,6 +61,7 @@ stages:
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '**/TEST-*.xml'
+        failTaskOnFailedTests: true
 
 ######################################################################################
 - stage: deploy_to_dev
