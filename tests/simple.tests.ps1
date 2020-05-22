@@ -3,6 +3,8 @@ Param(
 )
 
 $json = Get-Content -Path $TemplateFilePath
+$template = ConvertFrom-Json $json
+
 
 Describe 'Basic Pester Tests' {
     It 'A test that should be true' {
