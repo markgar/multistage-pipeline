@@ -3,6 +3,8 @@ trigger:
     include:
     - master
   
+variable:
+  skipComponentGovernanceDetection: true
 stages:
 
 ######################################################################################
@@ -52,7 +54,7 @@ stages:
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
-            $parameters = @{ TemplateFile = "./azuredeloy.json" }
+            $parameters = @{ TemplateFile = "$(Build.SourcesDirectory)/arm/azuredeloy.json" }
             $script = @{ Path = "tests/simple.tests.ps1"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
 
