@@ -50,9 +50,7 @@ stages:
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
-            $filePath = '$(Build.SourcesDirectory)/arm/azuredeploy.json'
-            Write-Host $filePath
-            $parameters = @{ TemplateFilePath = $filePath }
+            $parameters = @{ TemplateFilePath = "$(Build.SourcesDirectory)/arm/azuredeploy.json" }
             $script = @{ Path = "tests/simple.tests.ps1"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
 

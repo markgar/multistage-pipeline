@@ -2,7 +2,7 @@ Param(
     [string] $TemplateFilePath
 )
 
-$json = Get-Content -Path $TemplateFile
+$json = Get-Content -Path $TemplateFilePath
 $template = ConvertFrom-Json $json
 
 Write-Host $template
