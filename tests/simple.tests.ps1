@@ -1,6 +1,5 @@
 Param(
-    [string] [Parameter(Mandatory = $true)] $TemplateFile,
-    [hashtable] [Parameter(Mandatory = $true)] $Parameters
+    [string] [Parameter(Mandatory = $true)] $TemplateFile
 )
 
 $json = Get-Content -Path $TemplateFile
