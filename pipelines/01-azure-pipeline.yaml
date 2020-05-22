@@ -47,13 +47,16 @@ stages:
         deploymentMode: 'Validate'
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
+    - task: NuGetCommand@2
+      inputs:
+        command: 'restore'
+        restoreSolution: 'packages.config'
+        feedsToUse: 'select'  
+        restoreDirectory: '/tests'
     - powershell: |
             $parameters = @{ TemplateFilePath = "$(Build.SourcesDirectory)/arm/azuredeploy.json" }
-            $script = @{ Path = "tests/"; Parameters = $parameters }
-            Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
-
-            # $script = @{ Path = "tests/another.tests.ps1"; Parameters = $parameters }
-            # Invoke-Pester -Script $script -OutputFile TEST-another.xml -OutputFormat NUnitXML
+            $script = @{ Path = "tests/"; Parameters = $parameters } # runs all tests in this directory
+            Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
       inputs:
