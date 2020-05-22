@@ -49,11 +49,11 @@ stages:
       displayName: 'Install Pester'
     - powershell: |
             $parameters = @{ TemplateFilePath = "$(Build.SourcesDirectory)/arm/azuredeploy.json" }
-            $script = @{ Path = "tests/simple.tests.ps1"; Parameters = $parameters }
+            $script = @{ Path = "tests/"; Parameters = $parameters }
             Invoke-Pester -Script $script -OutputFile TEST-simple.xml -OutputFormat NUnitXML
 
-            $script = @{ Path = "tests/another.tests.ps1"; Parameters = $parameters }
-            Invoke-Pester -Script $script -OutputFile TEST-another.xml -OutputFormat NUnitXML
+            # $script = @{ Path = "tests/another.tests.ps1"; Parameters = $parameters }
+            # Invoke-Pester -Script $script -OutputFile TEST-another.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
       inputs:
