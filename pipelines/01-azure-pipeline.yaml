@@ -3,7 +3,7 @@ trigger:
     include:
     - master
   
-variable:
+variables:
   skipComponentGovernanceDetection: true
 stages:
 
