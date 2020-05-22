@@ -3,7 +3,7 @@ Param(
 )
 
 $json = Get-Content -Path $TemplateFilePath
-$template = ConvertFrom-Json $json
+$template = Out-String $json | ConvertFrom-Json
 
 
 Describe 'Basic Pester Tests' {
