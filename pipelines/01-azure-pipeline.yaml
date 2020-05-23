@@ -33,11 +33,6 @@ stages:
 
     steps:
     - powershell: |
-        $parameters = @{ TemplateFilePath = "$(Build.SourcesDirectory)/arm/azuredeploy.json" }
-        $script = @{ Path = "tests/"; Parameters = $parameters } # runs all tests in this directory
-        Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
-      displayName: 'Run Pester Tests'
-    - powershell: |
         Install-Script -Name CIS4Azure.Tests -Force
       displayName: 'Run Pester Tests'
     - task: AzureResourceManagerTemplateDeployment@3
