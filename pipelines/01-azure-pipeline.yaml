@@ -35,6 +35,7 @@ stages:
     - powershell: |
             $result = Install-Script -Name CIS4Azure.Tests -Force
             Write-Host $result
+            Write-Host "hello"
       displayName: 'Install CIS4Azure.Tests'
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: 'Perform VALIDATE on the ARM template'
