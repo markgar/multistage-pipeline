@@ -3,6 +3,9 @@ trigger:
     include:
     - master
 
+extends:
+  template: required-step.yml
+
 stages:
 
 ######################################################################################
