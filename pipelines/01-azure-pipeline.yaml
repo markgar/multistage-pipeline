@@ -3,12 +3,6 @@ trigger:
     include:
     - master
 
-
-
-extends:
-    template: required-step.yaml
-
-
 stages:
 
 ######################################################################################
