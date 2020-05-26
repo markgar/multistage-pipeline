@@ -32,7 +32,7 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - template: required-step.yml
+    - template: required-step.yaml
     - powershell: |
             $result = Install-Script -Name CIS4Azure.Tests -Force
             Write-Host $result
