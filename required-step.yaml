@@ -1,2 +1,0 @@
-steps:
-- powershell: Write-Host "Required Step has been called"
