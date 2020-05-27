@@ -29,6 +29,10 @@ stages:
       inputs:
         targetPath: '$(Build.SourcesDirectory)/multistage-pipeline/arm' 
         artifactName: 'drop'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester' 
+        artifactName: 'drop'
 
 ######################################################################################
 - stage: test_artifact
