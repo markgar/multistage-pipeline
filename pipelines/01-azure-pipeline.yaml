@@ -95,6 +95,12 @@ stages:
             Write-Host $dir
             $dir = Get-ChildItem -Path $(Pipeline.Workspace)
             Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/a"
+            Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/b"
+            Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/s"
+            Write-Host $dir
             Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
