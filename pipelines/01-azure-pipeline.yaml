@@ -128,7 +128,7 @@ stages:
               resourceGroupName: 'multistage-pipeline-dev'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
+              csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
               csmParametersFile: '$(pipeline.workspace)/drop/dev.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
 
@@ -159,7 +159,7 @@ stages:
               resourceGroupName: 'multistage-pipeline-tst'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
+              csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
               csmParametersFile: '$(pipeline.workspace)/drop/tst.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
           
