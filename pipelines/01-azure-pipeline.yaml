@@ -75,7 +75,8 @@ stages:
 
     steps:
     - task: DownloadBuildArtifacts@0
-      artifactName: drop
+      inputs:
+        artifactName: drop
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: 'Perform VALIDATE on the ARM template'
       inputs:
