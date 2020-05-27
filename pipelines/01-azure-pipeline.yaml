@@ -55,6 +55,9 @@ stages:
             $result = Install-Script -Name CIS4Azure.Tests -Force
             Write-Host $result
             Write-Host "hello"
+            Write-Host "$(Build.SourcesDirectory)"
+            Write-Host "$(Build.StagingDirectory)"
+            Write-Host "$(System.DefaultWorkingDirectory)"
       displayName: 'Install CIS4Azure.Tests'
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: 'Perform VALIDATE on the ARM template'
@@ -109,7 +112,7 @@ stages:
               resourceGroupName: 'multistage-pipeline-dev'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
               csmParametersFile: '$(pipeline.workspace)/drop/dev.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
 
@@ -140,7 +143,7 @@ stages:
               resourceGroupName: 'multistage-pipeline-tst'
               location: 'Central US'
               templateLocation: 'Linked artifact'
-              csmFile: '$(pipeline.workspace)/drop/azuredeploy.json'
+              csmFile: '$(pipeline.workspace)/drop/arm/azuredeploy.json'
               csmParametersFile: '$(pipeline.workspace)/drop/tst.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
           
