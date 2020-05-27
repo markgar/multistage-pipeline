@@ -70,12 +70,15 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
 
-    steps:
-    - powershell: |
-            $dir = Get-ChildItem -Path $(Pipeline.Workspace)
-            Write-Host $dir
-            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
-            Write-Host $dir
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - powershell: |
+                  $dir = Get-ChildItem -Path $(Pipeline.Workspace)
+                  Write-Host $dir
+                  $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
+                  Write-Host $dir
 
   - job: Test
     displayName: Test
