@@ -1,3 +1,10 @@
+resources:
+  repositories:
+  - repository: TestsRepo # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: markgar
+    name: markgar/CIS4Azure-Pester
+
 trigger:
   branches:
     include:
@@ -16,6 +23,8 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    - checkout: self
+    - checkout: 
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.SourcesDirectory)/arm' 
