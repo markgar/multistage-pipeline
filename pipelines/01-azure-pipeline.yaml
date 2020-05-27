@@ -27,11 +27,11 @@ stages:
     - checkout: TestsRepo
     - task: CopyFiles@2
       inputs:
-        contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm'
+        contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)
     - task: CopyFiles@2
       inputs:
-        contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester'
+        contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
         targetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishPipelineArtifact@1
       inputs:
