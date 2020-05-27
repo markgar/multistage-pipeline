@@ -44,7 +44,7 @@ stages:
       inputs:
         command: 'restore'
         restoreSolution: '$(Build.SourcesDirectory)/packages.config'
-        restoreDirectory: '$(Build.SourcesDirectory)/tests/CIS4Azure-nuget'
+        restoreDirectory: '$(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget'
         feedsToUse: 'select'
         includeNuGetOrg: true  
     - task: PublishPipelineArtifact@1
