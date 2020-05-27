@@ -82,7 +82,7 @@ stages:
             displayName: some debugging
           - powershell: Install-Module Pester -Force
             displayName: 'Install Pester'
-          - powershell: Invoke-Pester -Script $(Pipeline.Workspace)/drop/tests
+          - powershell: Invoke-Pester -Script "$(Pipeline.Workspace)/drop/tests"
 
                   #$parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
                   #$script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } 
