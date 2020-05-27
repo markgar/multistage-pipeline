@@ -47,6 +47,12 @@ stages:
         restoreDirectory: 'nuget/CIS4Azure-nuget'
         feedsToUse: 'select'
         includeNuGetOrg: true
+    - task: CopyFiles@2
+      displayName: Copy nuget Pester tests to Artifact Staging
+      inputs:
+        contents: '$(Build.SourcesDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget/*'
+        targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget
+        flattenFolders: true
     - powershell: |
             $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
             Write-Host $dir
