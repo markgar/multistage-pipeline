@@ -33,20 +33,24 @@ stages:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
         flattenFolders: true
-    - task: CopyFiles@2
-      displayName: Copy Pester tests to Artifact Staging
-      inputs:
-        contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
-        targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-checkout
-        flattenFolders: true
+    # - task: CopyFiles@2
+    #   displayName: Copy Pester tests to Artifact Staging
+    #   inputs:
+    #     contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
+    #     targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-checkout
+    #     flattenFolders: true
     - task: NuGetCommand@2
       displayName: Restore CIS4Azure from nuget.org
       inputs:
         command: 'restore'
         restoreSolution: '$(Build.SourcesDirectory)/packages.config'
-        restoreDirectory: '$(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget'
+        restoreDirectory: '$(Build.SourcesDirectory)/nuget/CIS4Azure-nuget'
         feedsToUse: 'select'
-        includeNuGetOrg: true  
+        includeNuGetOrg: true
+    - powershell: |
+            $dir = Get-ChildItem -Path $(Build.SourcesDirectory)
+            Write-Host $dir
+      displayName: 'Debug'
     - task: PublishPipelineArtifact@1
       displayName: Publish drop
       inputs:
