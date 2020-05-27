@@ -44,7 +44,7 @@ stages:
       inputs:
         command: 'restore'
         restoreSolution: '$(Build.SourcesDirectory)/multistage-pipeline/packages.config'
-        restoreDirectory: '$(BuildArtifactStagingDirectory)/nuget/CIS4Azure-nuget'
+        restoreDirectory: 'nuget/CIS4Azure-nuget'
         feedsToUse: 'select'
         includeNuGetOrg: true
     - powershell: |
