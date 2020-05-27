@@ -29,10 +29,12 @@ stages:
       inputs:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
+        flattenFolders: true
     - task: CopyFiles@2
       inputs:
         contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/pester
+        flattenFolders: true
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
