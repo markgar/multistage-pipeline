@@ -54,7 +54,7 @@ stages:
         targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget
         flattenFolders: true
     - powershell: |
-            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
+            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget
             Write-Host $dir
       displayName: 'Debug'
     - task: PublishPipelineArtifact@1
