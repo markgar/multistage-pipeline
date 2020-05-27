@@ -80,7 +80,7 @@ stages:
                   $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
                   Write-Host $dir
             displayName: some debugging
-          - powershell: Install-Module Pester -Force
+          - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
             displayName: 'Install Pester'
           - powershell: Invoke-Pester -Script "$(Pipeline.Workspace)/drop/tests"
 
