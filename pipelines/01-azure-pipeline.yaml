@@ -64,7 +64,7 @@ stages:
   displayName: Test ARM Template
 
   jobs:
-  - deployment: test-arm-template
+  - deployment: test_arm_template
     displayName: Test Arm Template (deployment step)
     environment: 'development'
     pool:
