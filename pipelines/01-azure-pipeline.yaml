@@ -74,22 +74,19 @@ stages:
       runOnce:
         deploy:
           steps:
-          - powershell: |
-                  $dir = Get-ChildItem -Path $(Pipeline.Workspace)
-                  Write-Host $dir
-                  $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
-                  Write-Host $dir
-            displayName: some debugging
           - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
-            displayName: 'Install Pester'
+            displayName: 'Install Pester 4.10.1'
           - powershell: |
                   $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
                   $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } 
                   Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
-                  
-                  $dir = Get-ChildItem -Path $(Pipeline.Workspace)
-                  Write-Host $dir
             displayName: Invoke Pester
+          - task: PublishTestResults@2
+            displayName: Publish Test Results
+            inputs:
+              testResultsFormat: 'NUnit'
+              testResultsFiles: '**/TEST-*.xml'
+              failTaskOnFailedTests: true
 
   # - job: Test
   #   displayName: Test
