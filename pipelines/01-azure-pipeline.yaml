@@ -82,9 +82,10 @@ stages:
           - powershell: Install-Module Pester -Force
             displayName: 'Install Pester'
           - powershell: |
-                  $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
-                  $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
-                  Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
+                  #$parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
+                  #$script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
+                  Invoke-Pester -Script @{ Path = '.\Tests\Utility\ModuleUnit.Tests.ps1'; Parameters = @{ TemplatePath = '$(Pipeline.Workspace)/drop/arm/azuredeploy.json' } }
+                  #Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
                   $dir = Get-ChildItem -Path $(Pipeline.Workspace)
                   Write-Host $dir
 
