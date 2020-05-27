@@ -24,18 +24,23 @@ stages:
 
     steps:
     - checkout: self
+      displayName: Checkout default repository
     - checkout: TestsRepo
+      displayName: Checkout tests repository from hithub
     - task: CopyFiles@2
+      displayName: Copy ARM templates to Artifact Staging
       inputs:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
         flattenFolders: true
     - task: CopyFiles@2
+      displayName: Copy Pester tests to Artifact Staging
       inputs:
         contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/pester
         flattenFolders: true
     - task: PublishPipelineArtifact@1
+      displayName: Publish drop
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'drop'
@@ -65,12 +70,13 @@ stages:
         csmParametersFile: '$(Build.SourcesDirectory)/arm/dev.azuredeploy.parameters.json'
         deploymentMode: 'Validate'
     - task: NuGetCommand@2
+      displayName: Restore CIS4Azure from nuget.org
       inputs:
         command: 'restore'
         restoreSolution: '$(Build.SourcesDirectory)/packages.config'
         restoreDirectory: '$(Build.SourcesDirectory)/tests/CIS4Azure'
         feedsToUse: 'select'
-        includeNuGetOrg: true
+        includeNuGetOrg: true  
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
@@ -79,6 +85,7 @@ stages:
             Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
+      displayName: Publish Test Results
       inputs:
         testResultsFormat: 'NUnit'
         testResultsFiles: '**/TEST-*.xml'
