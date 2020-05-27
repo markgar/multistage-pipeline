@@ -64,6 +64,19 @@ stages:
   displayName: Test ARM Template
 
   jobs:
+  - deployment: test-arm-template
+    displayName: Test Arm Template (deployment step)
+    environment: 'development'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - powershell: |
+            $dir = Get-ChildItem -Path $(Pipeline.Workspace)
+            Write-Host $dir
+            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
+            Write-Host $dir
+
   - job: Test
     displayName: Test
     pool:
