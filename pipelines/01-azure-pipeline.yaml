@@ -43,7 +43,7 @@ stages:
       displayName: Restore CIS4Azure from nuget.org
       inputs:
         command: 'restore'
-        restoreSolution: '$(Build.SourcesDirectory)/packages.config'
+        restoreSolution: '$(Build.SourcesDirectory)/multistage-pipeline/packages.config'
         restoreDirectory: '$(BuildArtifactStagingDirectory)/nuget/CIS4Azure-nuget'
         feedsToUse: 'select'
         includeNuGetOrg: true
