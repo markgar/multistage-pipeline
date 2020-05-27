@@ -83,7 +83,7 @@ stages:
             displayName: 'Install Pester'
           - powershell: |
                   $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
-                  $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
+                  $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } 
                   Invoke-Pester -Script @{ Path = '$(Pipeline.Workspace)/drop/tests/'; Parameters = @{ TemplatePath = '$(Pipeline.Workspace)/drop/arm/azuredeploy.json' } }
                   #Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
                   $dir = Get-ChildItem -Path $(Pipeline.Workspace)
