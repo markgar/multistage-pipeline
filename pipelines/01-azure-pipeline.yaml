@@ -58,6 +58,7 @@ stages:
             Write-Host "$(Build.SourcesDirectory)"
             Write-Host "$(Build.StagingDirectory)"
             Write-Host "$(System.DefaultWorkingDirectory)"
+            $dir = Get-ChildItem -Path $(System.DefaultWorkingDirectory)
       displayName: 'Install CIS4Azure.Tests'
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: 'Perform VALIDATE on the ARM template'
