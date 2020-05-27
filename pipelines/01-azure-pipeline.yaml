@@ -53,7 +53,6 @@ stages:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget/**/*Tests.ps1'
         targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget
         flattenFolders: true
-      displayName: 'Debug'
     - task: PublishPipelineArtifact@1
       displayName: Publish drop
       inputs:
