@@ -44,11 +44,11 @@ stages:
       inputs:
         command: 'restore'
         restoreSolution: '$(Build.SourcesDirectory)/packages.config'
-        restoreDirectory: '$(Build.SourcesDirectory)/nuget/CIS4Azure-nuget'
+        restoreDirectory: '$(BuildArtifactStagingDirectory)/nuget/CIS4Azure-nuget'
         feedsToUse: 'select'
         includeNuGetOrg: true
     - powershell: |
-            $dir = Get-ChildItem -Path $(Build.SourcesDirectory)
+            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
             Write-Host $dir
       displayName: 'Debug'
     - task: PublishPipelineArtifact@1
