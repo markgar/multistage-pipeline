@@ -37,8 +37,16 @@ stages:
       displayName: Copy Pester tests to Artifact Staging
       inputs:
         contents: '$(Build.SourcesDirectory)/CIS4Azure-Pester/pester/*'
-        targetFolder: $(Build.ArtifactStagingDirectory)/pester
+        targetFolder: $(Build.ArtifactStagingDirectory)/tests/local
         flattenFolders: true
+    - task: NuGetCommand@2
+      displayName: Restore CIS4Azure from nuget.org
+      inputs:
+        command: 'restore'
+        restoreSolution: '$(Build.SourcesDirectory)/packages.config'
+        restoreDirectory: '$(Build.SourcesDirectory)/tests/CIS4Azure'
+        feedsToUse: 'select'
+        includeNuGetOrg: true  
     - task: PublishPipelineArtifact@1
       displayName: Publish drop
       inputs:
@@ -69,14 +77,6 @@ stages:
         csmFile: '$(Build.SourcesDirectory)/arm/azuredeploy.json'
         csmParametersFile: '$(Build.SourcesDirectory)/arm/dev.azuredeploy.parameters.json'
         deploymentMode: 'Validate'
-    - task: NuGetCommand@2
-      displayName: Restore CIS4Azure from nuget.org
-      inputs:
-        command: 'restore'
-        restoreSolution: '$(Build.SourcesDirectory)/packages.config'
-        restoreDirectory: '$(Build.SourcesDirectory)/tests/CIS4Azure'
-        feedsToUse: 'select'
-        includeNuGetOrg: true  
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
