@@ -90,7 +90,7 @@ stages:
       displayName: 'Install Pester'
     - powershell: |
             $parameters = @{ TemplatePath = "$(Build.SourcesDirectory)/arm/azuredeploy.json" }
-            $script = @{ Path = "$(Build.ArtifactStagingDirectory)/tests/"; Parameters = $parameters } # runs all tests in this directory
+            $script = @{ Path = "$(Build.ArtifactStagingDirectory)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
             Write-Host $script | ConvertTo-Json
             Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
