@@ -24,7 +24,7 @@ stages:
 
     steps:
     - checkout: self
-    - checkout: 
+    - checkout: TestsRepo
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.SourcesDirectory)/arm' 
