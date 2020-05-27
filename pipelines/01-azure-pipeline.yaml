@@ -50,7 +50,7 @@ stages:
     - task: CopyFiles@2
       displayName: Copy nuget Pester tests to Artifact Staging
       inputs:
-        contents: '$(Build.SourcesDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget/**'
+        contents: '$(Build.SourcesDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget/**/*Tests.ps1'
         targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget
         flattenFolders: true
     - powershell: |
