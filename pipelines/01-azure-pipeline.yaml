@@ -66,11 +66,11 @@ stages:
         deploymentMode: 'Validate'
     - task: NuGetCommand@2
       inputs:
-        command: 'restore' # Options: restore, pack, push, custom
-        restoreSolution: '$(Build.SourcesDirectory)/packages.config' # Required when command == Restore
-        restoreDirectory: '$(Build.SourcesDirectory)/packages'
-        feedsToUse: 'select' # Options: select, config
-        includeNuGetOrg: true # Required when feedsToUse == Select
+        command: 'restore'
+        restoreSolution: '$(Build.SourcesDirectory)/packages.config'
+        restoreDirectory: '$(Build.SourcesDirectory)/tests/CIS4Azure'
+        feedsToUse: 'select'
+        includeNuGetOrg: true
     - powershell: Install-Module Pester -Force
       displayName: 'Install Pester'
     - powershell: |
