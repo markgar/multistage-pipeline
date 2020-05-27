@@ -27,7 +27,7 @@ stages:
     - checkout: TestsRepo
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Build.SourcesDirectory)/arm' 
+        targetPath: '$(Build.SourcesDirectory)/multistage-pipeline/arm' 
         artifactName: 'drop'
 
 ######################################################################################
