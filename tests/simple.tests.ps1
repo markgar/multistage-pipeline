@@ -1,5 +1,5 @@
 Param(
-    [string] $TemplateFilePath
+    [string] $TemplatePath
 )
 
 $template = Get-Content -Path $TemplateFilePath | Out-String | ConvertFrom-Json
