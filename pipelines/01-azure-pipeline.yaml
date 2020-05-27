@@ -162,7 +162,7 @@ stages:
               location: 'Central US'
               templateLocation: 'Linked artifact'
               csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
-              csmParametersFile: '$(Pipeline.Workspace)/drop/dev.azuredeploy.parameters.json'
+              csmParametersFile: '$(Pipeline.Workspace)/drop/arm/dev.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
 
 ######################################################################################
@@ -193,6 +193,6 @@ stages:
               location: 'Central US'
               templateLocation: 'Linked artifact'
               csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
-              csmParametersFile: '$(Pipeline.Workspace)/drop/tst.azuredeploy.parameters.json'
+              csmParametersFile: '$(Pipeline.Workspace)/drop/arm/tst.azuredeploy.parameters.json'
               deploymentMode: 'Complete'
           
