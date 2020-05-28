@@ -115,6 +115,16 @@ stages:
     - powershell: |
             $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
             $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
+            $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
+            Write-Host $dir
+            $dir = Get-ChildItem -Path $(Pipeline.Workspace)
+            Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/a"
+            Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/b"
+            Write-Host $dir
+            $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/s"
+            Write-Host $dir
             Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
