@@ -65,7 +65,7 @@ stages:
 
   jobs:
   - deployment: test_arm_template
-    displayName: Test Arm Template (deployment step)
+    displayName: Test Arm Template (deployment tyoe job)
     environment: 'development'
     pool:
       vmImage: 'ubuntu-latest'
@@ -89,7 +89,7 @@ stages:
               failTaskOnFailedTests: true
 
   - job: Test
-    displayName: Test
+    displayName: Test (build job)
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -120,6 +120,8 @@ stages:
             # Write-Host $dir
             # $dir = Get-ChildItem -Path $(Pipeline.Workspace)
             # Write-Host $dir
+
+            Write-Host "$(Pipeline.Workspace)"
             $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/a"
             Write-Host $dir
             # $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/b"
