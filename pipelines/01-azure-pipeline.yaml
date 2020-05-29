@@ -97,6 +97,7 @@ stages:
     - task: DownloadBuildArtifacts@0
       inputs:
         artifactName: drop
+        path: $(Pipeline.Workspace)
     # - task: AzureResourceManagerTemplateDeployment@3
     #   displayName: 'Perform VALIDATE on the ARM template'
     #   inputs:
@@ -125,7 +126,7 @@ stages:
             Write-Host $dir
             $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/s"
             Write-Host $dir
-            #Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
+            #I nvoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Run Pester Tests'
     - task: PublishTestResults@2
       displayName: Publish Test Results
