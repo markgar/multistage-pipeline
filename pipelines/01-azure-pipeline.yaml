@@ -118,8 +118,8 @@ stages:
             $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } # runs all tests in this directory
             # $dir = Get-ChildItem -Path $(Build.ArtifactStagingDirectory)
             # Write-Host $dir
-            # $dir = Get-ChildItem -Path $(Pipeline.Workspace)
-            # Write-Host $dir
+            $dir = Get-ChildItem -Path $(Pipeline.Workspace)
+            Write-Host $dir
 
             Write-Host "$(Pipeline.Workspace)"
             $dir = Get-ChildItem -Path "$(Pipeline.Workspace)/a"
