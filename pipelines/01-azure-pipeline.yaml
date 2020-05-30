@@ -64,29 +64,29 @@ stages:
   displayName: Test ARM Template
 
   jobs:
-  - deployment: test_arm_template
-    displayName: Test Arm Template (deployment tyoe job)
-    environment: 'development'
-    pool:
-      vmImage: 'ubuntu-latest'
+  # - deployment: test_arm_template
+  #   displayName: Test Arm Template (deployment tyoe job)
+  #   environment: 'development'
+  #   pool:
+  #     vmImage: 'ubuntu-latest'
 
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
-            displayName: 'Install Pester 4.10.1'
-          - powershell: |
-                  $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
-                  $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } 
-                  Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
-            displayName: Invoke Pester
-          - task: PublishTestResults@2
-            displayName: Publish Test Results
-            inputs:
-              testResultsFormat: 'NUnit'
-              testResultsFiles: '**/TEST-*.xml'
-              failTaskOnFailedTests: true
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
+  #           displayName: 'Install Pester 4.10.1'
+  #         - powershell: |
+  #                 $parameters = @{ TemplatePath = "$(Pipeline.Workspace)/drop/arm/azuredeploy.json" }
+  #                 $script = @{ Path = "$(Pipeline.Workspace)/drop/tests/"; Parameters = $parameters } 
+  #                 Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
+  #           displayName: Invoke Pester
+  #         - task: PublishTestResults@2
+  #           displayName: Publish Test Results
+  #           inputs:
+  #             testResultsFormat: 'NUnit'
+  #             testResultsFiles: '**/TEST-*.xml'
+  #             failTaskOnFailedTests: true
 
   - job: Test
     displayName: Test (build job)
@@ -94,10 +94,11 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - download: none
     - task: DownloadBuildArtifacts@0
       inputs:
         artifactName: drop
+        source: 'current'
+        preferTriggeringPipeline: true
         path: $(Pipeline.Workspace)/drop
     # - task: AzureResourceManagerTemplateDeployment@3
     #   displayName: 'Perform VALIDATE on the ARM template'
