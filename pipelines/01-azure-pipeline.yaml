@@ -94,6 +94,7 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    - download: none
     - task: DownloadBuildArtifacts@0
       inputs:
         artifactName: drop
