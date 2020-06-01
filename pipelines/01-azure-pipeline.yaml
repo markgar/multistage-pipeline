@@ -81,7 +81,7 @@ stages:
 # - stage: test_artifact
 #   displayName: Test ARM Template
 
-  jobs:
+  # jobs:
   # - deployment: test_arm_template
   #   displayName: Test Arm Template (deployment tyoe job)
   #   environment: 'development'
