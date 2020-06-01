@@ -78,8 +78,8 @@ stages:
         failTaskOnFailedTests: true
 
 ######################################################################################
-- stage: test_artifact
-  displayName: Test ARM Template
+# - stage: test_artifact
+#   displayName: Test ARM Template
 
   jobs:
   # - deployment: test_arm_template
@@ -160,7 +160,7 @@ stages:
 ######################################################################################
 - stage: deploy_to_dev
   displayName: Deploy to Dev
-  dependsOn: test_artifact
+  dependsOn: gather_test
   condition: succeeded()
 
   jobs:
