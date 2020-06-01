@@ -23,22 +23,27 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    # gather tests from this repository (dev team's tests)
     - checkout: self
       displayName: Gather - Checkout default repository
-    - checkout: TestsRepo
-      displayName: Gather - Checkout tests repository from github
     - task: CopyFiles@2
       displayName: Gather - Copy ARM templates to Artifact Staging
       inputs:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
-        flattenFolders: true
+        flattenFolders: true   
+
+    # gather tests from the shared repository (security team's tests)
+    - checkout: TestsRepo
+      displayName: Gather - Checkout tests repository from github
     - task: CopyFiles@2
       displayName: Gather - Copy Pester tests to Artifact Staging
       inputs:
         contents: '$(Build.SourcesDirectory)/shared-arm-tests/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/tests/shared-arm-tests
         flattenFolders: true
+
+    # gather industry tests (CIS4Azure) from nuget.org
     - task: NuGetCommand@2
       displayName: Gather - Restore CIS4Azure from nuget.org
       inputs:
@@ -53,14 +58,21 @@ stages:
         contents: '$(Build.SourcesDirectory)/multistage-pipeline/nuget/CIS4Azure-nuget/**/*Tests.ps1'
         targetFolder: $(Build.ArtifactStagingDirectory)/tests/CIS4Azure-nuget
         flattenFolders: true
+
+    # publish artifact for archive
     - task: PublishPipelineArtifact@1
       displayName: Gather - Publish drop
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'drop'
 
+    #########################
+    # test template
+
+    # install Pester
     - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
       displayName: 'Test - Install Pester version 4.10.1'
+    # execute pester
     - powershell: |
             $parameters = @{ TemplatePath = "$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json" }
             $script = @{ Path = "$(Build.ArtifactStagingDirectory)/tests/"; Parameters = $parameters } # runs all tests in this directory
@@ -70,6 +82,8 @@ stages:
 
             Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Test - Run Pester Tests'
+
+    # publish test results
     - task: PublishTestResults@2
       displayName: Test - Publish Test Results
       inputs:
