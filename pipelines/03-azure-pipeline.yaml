@@ -41,6 +41,28 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'drop'
 
+    #########################
+    # test template
+
+    # install Pester
+    - powershell: Install-Module Pester -Force -RequiredVersion 4.10.1
+      displayName: 'Test - Install Pester version 4.10.1'
+    # execute pester
+    - powershell: |
+            $parameters = @{ TemplatePath = "$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json" }
+            $script = @{ Path = "$(Build.ArtifactStagingDirectory)/tests/"; Parameters = $parameters } # runs all tests in this directory
+
+            Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
+      displayName: 'Test - Run Pester Tests'
+
+    # publish test results
+    - task: PublishTestResults@2
+      displayName: Test - Publish Test Results
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        failTaskOnFailedTests: true
+
 ######################################################################################
 - stage: deploy_to_dev
   displayName: Deploy to Dev
