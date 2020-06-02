@@ -20,6 +20,11 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+
+    #########################
+    # gather resources
+
+    # get arm templates
     - task: CopyFiles@2
       displayName: Gather - Copy ARM templates to Artifact Staging
       inputs:
@@ -27,6 +32,7 @@ stages:
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
         flattenFolders: true   
 
+    # get tests
     - task: CopyFiles@2
       displayName: Gather - Copy Pester tests to Artifact Staging
       inputs:
