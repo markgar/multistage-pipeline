@@ -1,0 +1,94 @@
+trigger:
+  branches:
+    include:
+    - master
+
+stages:
+
+######################################################################################
+- stage: gather_test
+  displayName: Gather Resources (code, tests) and Test Templates
+
+  jobs:
+  - job: gather_test_job
+    displayName: Gather, Test
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: CopyFiles@2
+      displayName: Gather - Copy ARM templates to Artifact Staging
+      inputs:
+        contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
+        targetFolder: $(Build.ArtifactStagingDirectory)/arm
+        flattenFolders: true   
+
+    # publish artifact for archive
+    - task: PublishPipelineArtifact@1
+      displayName: Gather - Publish drop
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'drop'
+
+######################################################################################
+- stage: deploy_to_dev
+  displayName: Deploy to Dev
+  dependsOn: gather_test
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_dev
+    displayName: Deploy to Development
+    environment: 'development'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
+              subscriptionId: '75ebdae9-6e1c-4baa-8b2e-5576f6356a91'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'multistage-pipeline-dev'
+              location: 'Central US'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
+              csmParametersFile: '$(Pipeline.Workspace)/drop/arm/dev.azuredeploy.parameters.json'
+              deploymentMode: 'Complete'
+
+######################################################################################
+- stage: deploy_to_test
+  displayName: Deploy to Test
+  dependsOn: deploy_to_dev
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_test
+    displayName: Deploy to Test
+    environment: 'test'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Mark Garner - Internal Consumption(75ebdae9-6e1c-4baa-8b2e-5576f6356a91)'
+              subscriptionId: '75ebdae9-6e1c-4baa-8b2e-5576f6356a91'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'multistage-pipeline-tst'
+              location: 'Central US'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(Pipeline.Workspace)/drop/arm/azuredeploy.json'
+              csmParametersFile: '$(Pipeline.Workspace)/drop/arm/tst.azuredeploy.parameters.json'
+              deploymentMode: 'Complete'
+          

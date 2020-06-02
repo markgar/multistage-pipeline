@@ -1,0 +1,64 @@
+trigger:
+  branches:
+    include:
+    - master
+
+stages:
+
+######################################################################################
+- stage: gather_test
+  displayName: Gather Resources (code, tests) and Test Templates
+
+  jobs:
+  - job: gather_test_job
+    displayName: Gather, Test
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - powershell: Write-Host "Hello from the Gather, Test Job"
+      displayName: 'Echo'
+
+
+######################################################################################
+- stage: deploy_to_dev
+  displayName: Deploy to Dev
+  dependsOn: gather_test
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_dev
+    displayName: Deploy to Development
+    environment: 'development'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - powershell: Write-Host "Hello from the Deploy to Dev Job"
+            displayName: 'Echo'
+
+######################################################################################
+- stage: deploy_to_test
+  displayName: Deploy to Test
+  dependsOn: deploy_to_dev
+  condition: succeeded()
+
+  jobs:
+  - deployment: deploy_to_test
+    displayName: Deploy to Test
+    environment: 'test'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - powershell: Write-Host "Hello from the Deploy to Test Job"
+            displayName: 'Echo'
+          
