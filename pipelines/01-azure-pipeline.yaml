@@ -2,6 +2,10 @@ trigger:
   branches:
     include:
     - master
+  paths:
+    include:
+    - arm/*
+    - pipelines/01-azure-pipeline.yaml
 
 stages:
 

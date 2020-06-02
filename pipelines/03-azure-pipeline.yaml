@@ -5,7 +5,7 @@ trigger:
   paths:
     include:
     - arm/*
-    - pipelines/02-azure-pipeline.yaml
+    - pipelines/03-azure-pipeline.yaml
 
 stages:
 
@@ -26,6 +26,13 @@ stages:
         contents: '$(Build.SourcesDirectory)/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
         flattenFolders: true   
+
+    - task: CopyFiles@2
+      displayName: Gather - Copy Pester tests to Artifact Staging
+      inputs:
+        contents: '$(Build.SourcesDirectory)/tests/*'
+        targetFolder: $(Build.ArtifactStagingDirectory)/tests
+        flattenFolders: true
 
     # publish artifact for archive
     - task: PublishPipelineArtifact@1

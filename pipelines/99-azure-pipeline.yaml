@@ -9,6 +9,10 @@ trigger:
   branches:
     include:
     - master
+  paths:
+    include:
+    - arm/*
+    - pipelines/99-azure-pipeline.yaml
 
 stages:
 
