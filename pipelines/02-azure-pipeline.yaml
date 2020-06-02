@@ -19,7 +19,7 @@ stages:
     - task: CopyFiles@2
       displayName: Gather - Copy ARM templates to Artifact Staging
       inputs:
-        contents: '$(Build.SourcesDirectory)/multistage-pipeline/arm/*'
+        contents: '$(Build.SourcesDirectory)/arm/*'
         targetFolder: $(Build.ArtifactStagingDirectory)/arm
         flattenFolders: true   
 
