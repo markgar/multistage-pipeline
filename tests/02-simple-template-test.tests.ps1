@@ -3,7 +3,7 @@ Write-Host $TemplateFileName
 $content = Get-Content -Path $TemplateFileName
 Write-Host $content
 $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
-
+Write-Host $template
 
 Describe 'Sample Pester Test of an ARM Template' {
     It 'Has a resource title of Microsoft.Network/virtualNetworks' {
