@@ -5,7 +5,7 @@ BeforeAll {
 }
 
 
-Describe 'Sample Pester Test of an ARM Template' {
+Describe '03-Describe Block' {
     foreach ($resource in $template.resources)
     {
         It 'Has a resource location of eastus' {
