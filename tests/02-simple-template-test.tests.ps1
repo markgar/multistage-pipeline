@@ -1,8 +1,9 @@
 # Param(
 #     [string] $TemplatePath
 # )
-$templatePath = $Env:ArmTemplateFileName
-$template = Get-Content -Path $templatePath | Out-String | ConvertFrom-Json
+$TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+Write-Host $TemplateFileName
+$template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
 
 
 Describe 'Sample Pester Test of an ARM Template' {

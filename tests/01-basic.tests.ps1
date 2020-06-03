@@ -1,4 +1,5 @@
-Write-Host $Env:ArmTemplateFileName
+$TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+Write-Host $TemplateFileName
 
 Describe 'Another Pester Test' {
     It 'A test that should also be true' {
