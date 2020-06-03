@@ -1,6 +1,7 @@
 $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 Write-Host $TemplateFileName
-Get-Content -Path $TemplateFileName
+$content = Get-Content -Path $TemplateFileName
+Write-Host $content
 $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
 
 
