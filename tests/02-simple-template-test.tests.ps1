@@ -2,6 +2,7 @@ $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileNa
 
 $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
 
+Write-Host $template.resources.Count
 
 Describe 'Sample Pester Test of an ARM Template' {
     It 'Has a total of 2 objects in the resources array' {
