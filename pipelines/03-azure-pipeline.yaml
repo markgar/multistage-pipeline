@@ -58,7 +58,7 @@ stages:
             $parameters = @{ TemplatePath = "$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json" }
             $script = @{ Path = "$(Build.ArtifactStagingDirectory)/tests/"; Parameters = $parameters } # runs all tests in this directory
             
-            $Env:TestVariable = "test"
+            $Env:ArmTemplateFileName = "$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json"
 
             Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Test - Run Pester Tests'
