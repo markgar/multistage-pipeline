@@ -56,9 +56,6 @@ stages:
     # execute pester
     - powershell: |
             [System.Environment]::SetEnvironmentVariable('TemplateFileName', '$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json')
-            $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
-            Write-Host $TemplateFileName
-
 
             Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" #-OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Test - Run Pester Tests'
