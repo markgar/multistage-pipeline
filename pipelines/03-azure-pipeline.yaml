@@ -51,7 +51,7 @@ stages:
     # test template
 
     # install Pester
-    - powershell: Install-Module Pester -Force
+    - powershell: Install-Module Pester -Force -RequiredVersion 5.0.2
       displayName: 'Test - Install Pester version 4.10.1'
     # execute pester
     - powershell: |
