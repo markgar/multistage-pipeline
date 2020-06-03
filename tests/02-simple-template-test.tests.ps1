@@ -1,6 +1,11 @@
-$TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+BeforeAll {
+    $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 
-$template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+    $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+}
+# $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+
+# $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
 
 Write-Host "1: " + $template.resources.Count
 
