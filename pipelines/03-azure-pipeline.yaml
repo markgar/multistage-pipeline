@@ -53,7 +53,7 @@ stages:
 
     # install Pester
     - powershell: Install-Module Pester -Force -RequiredVersion 5.0.2
-      displayName: 'Test - Install Pester version 5.0.2 or 4.10.1'
+      displayName: 'Test - Install Pester version 5.0.2'
     # execute pester
     - powershell: |
             [System.Environment]::SetEnvironmentVariable('TemplateFileName', '$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json')

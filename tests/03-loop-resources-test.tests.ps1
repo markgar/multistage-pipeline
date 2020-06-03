@@ -1,6 +1,8 @@
-$TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+BeforeAll {
+    $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 
-$template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+    $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+}
 
 
 Describe 'Sample Pester Test of an ARM Template' {
