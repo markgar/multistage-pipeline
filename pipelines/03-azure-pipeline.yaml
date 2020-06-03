@@ -52,14 +52,15 @@ stages:
 
     # install Pester
     - powershell: Install-Module Pester -Force -RequiredVersion 5.0.2
-      displayName: 'Test - Install Pester version 4.10.1'
+      displayName: 'Test - Install Pester version 5.0.2'
     # execute pester
     - powershell: |
             $parameters = @{ TemplatePath = "$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json" }
             $script = @{ Path = "$(Build.ArtifactStagingDirectory)/tests/"; Parameters = $parameters } # runs all tests in this directory
+            
             $Env:TestVariable = "test"
 
-            Invoke-Pester -Script $script -OutputFile TEST-all.xml -OutputFormat NUnitXML
+            Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -OutputFile TEST-all.xml -OutputFormat NUnitXML
       displayName: 'Test - Run Pester Tests'
 
     # publish test results
