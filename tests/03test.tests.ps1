@@ -13,7 +13,8 @@ Describe 'Virtual Network Tests' {
     $virtualNetworkObjects = $template.resources | Where-Object { $_.type -in "Microsoft.Network/virtualNetworks" }
     Write-Host $virtualNetworkObjects
 
-
+    $testCases = $virtualNetworkObject | Select-Object -Property type
+    Write-Host $testCases
 
     It 'Has a resource type of Microsoft.Network/virtualNetworks'  -TestCases $virtualNetworkObjects {
         param ($resource)
