@@ -11,14 +11,15 @@ Describe '03-Describe Block' {
 
     $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
 
-    # foreach ($resource in $template.resources)
-    # {
-    #     $testCases =  @{ resource = $resource }
+    foreach ($resource in $template.resources) {
+        if ($resource.type -eq 'Microsoft.Network/virtualNetworks') {
+            $testCases = @{ location = $resource.location }
 
-        It 'Has a resource location of eastus'  -TestCases $template.resources {
-            param ($resource)
-
-            $resource.location | Should -Not -Be 'blah'
+            It 'Has a resource location of eastus'  -TestCases $testCases {
+                param ($resource)
+    
+                $resource.location | Should -Not -Be 'blah'
+            }
         }
-    # }
+    }
 }
