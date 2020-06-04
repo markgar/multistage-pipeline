@@ -64,8 +64,8 @@ stages:
             $c.TestResult.Enabled = $true
             $c.TestResult.OutputPath = "$(Build.ArtifactStagingDirectory)/tests/TEST-all.xml"
 
-            Invoke-Pester -Configuration $c
-            #Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -OutputFile TEST-all.xml -OutputFormat NUnitXML
+            #Invoke-Pester -Configuration $c
+            #Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -CI
       displayName: 'Test - Run Pester Tests'
 
     # publish test results
