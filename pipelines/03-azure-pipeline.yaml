@@ -56,13 +56,13 @@ stages:
       displayName: 'Test - Install Pester version 5.0.2'
     # execute pester
     - powershell: |
-            [System.Environment]::SetEnvironmentVariable('TemplateFileName', '$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json')
+            # [System.Environment]::SetEnvironmentVariable('TemplateFileName', '$(Build.ArtifactStagingDirectory)/arm/azuredeploy.json')
 
-            $c = [PesterConfiguration]::Default
-            $c.Run.Path = "$(Build.ArtifactStagingDirectory)/tests/"
-            $c.Run.Exit = $true
-            $c.TestResult.Enabled = $true
-            $c.TestResult.OutputPath = "$(Build.ArtifactStagingDirectory)/tests/TEST-all.xml"
+            # $c = [PesterConfiguration]::Default
+            # $c.Run.Path = "$(Build.ArtifactStagingDirectory)/tests/"
+            # $c.Run.Exit = $true
+            # $c.TestResult.Enabled = $true
+            # $c.TestResult.OutputPath = "$(Build.ArtifactStagingDirectory)/tests/TEST-all.xml"
 
             #Invoke-Pester -Configuration $c
             #Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -CI
