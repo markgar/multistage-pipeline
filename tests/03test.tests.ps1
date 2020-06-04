@@ -1,12 +1,14 @@
-BeforeAll {
-    $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+# BeforeAll {
+#     $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 
-    $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
-}
+#     $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+# }
 
 
 Describe 'Virtual Network Tests' {
+    $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 
+    $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
     Write-Host $template
     $virtualNetworkObjects = $template.resources | Where-Object { $_.type -in "Microsoft.Network/virtualNetworks" }
     Write-Host $virtualNetworkObjects

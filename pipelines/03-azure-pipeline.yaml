@@ -65,8 +65,6 @@ stages:
             # $c.TestResult.OutputPath = "$(Build.ArtifactStagingDirectory)/tests/TEST-all.xml"
 
             #Invoke-Pester -Configuration $c
-            $dir = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)/tests/"
-            Write-Host $dir
             Invoke-Pester -Path "$(Build.ArtifactStagingDirectory)/tests/" -CI
       displayName: 'Test - Run Pester Tests'
 
