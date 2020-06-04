@@ -73,7 +73,7 @@ stages:
       displayName: Test - Publish Test Results
       inputs:
         testResultsFormat: 'NUnit'
-        testResultsFiles: '**/TEST-*.xml'
+        testResultsFiles: '**/testResults.xml'
         failTaskOnFailedTests: true
 
 ######################################################################################
