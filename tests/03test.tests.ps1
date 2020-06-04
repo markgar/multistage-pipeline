@@ -15,7 +15,8 @@ Describe '03-Describe Block' {
     foreach ($resource in $template.resources)
     {
         Write-Host "3:" + $resource
-        It 'Has a resource location of eastus'  -TestCases {resource = $resource} {
+        It 'Has a resource location of eastus'  -TestCases @{ resource = $resource} {
+            param ($resource)
             Write-Host "4:" + $resource
             $resource.location | Should -Be 'eastus'
         }
