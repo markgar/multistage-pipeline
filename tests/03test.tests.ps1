@@ -8,6 +8,7 @@ BeforeAll {
 Describe 'Virtual Network Tests' {
 
     $virtualNetworkObjects = $template.resources | Where-Object { $_.type -in "Microsoft.Network/virtualNetworks" }
+    Write-Host $virtualNetworkObjects
 
 
 
