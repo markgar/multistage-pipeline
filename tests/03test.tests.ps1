@@ -1,8 +1,8 @@
-# BeforeAll {
-#     $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
+BeforeAll {
+    $TemplateFileName = [System.Environment]::GetEnvironmentVariable('TemplateFileName')
 
-#     $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
-# }
+    $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
+}
 
 
 Describe '03-Describe Block' {
@@ -12,12 +12,13 @@ Describe '03-Describe Block' {
     $template = Get-Content -Path $TemplateFileName | Out-String | ConvertFrom-Json
     Write-Host "2:" + $template
 
-    foreach ($resource in $template.resources)
+    for ($i=0; $i -lt $template.resources.count; i++)
     {
         Write-Host "3:" + $resource
         It 'Has a resource location of eastus' {
             Write-Host "4:" + $resource
-            $resource.location | Should -Be 'eastus'
+            Write-Host "5: " + $template
+            $template.resources[$i].location | Should -Be 'eastus'
         }
     }
 }
